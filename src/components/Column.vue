@@ -4,9 +4,9 @@
         <div>{{column.title}}</div>
         <div @click="destroyColumn(column.id)">DEL</div>
     </div>
-    <div>
+    <draggable class="list-group" :list="column.cards" group="cards" @change="log">
         <Card v-for="card in column.cards" :key="card.id" :card="card" />
-    </div>
+    </draggable>
     <Modal :parentColumnId='column.id' @closedModal="closedModal"/>
     <div @click="openModal(column.id)">Add Card +</div>
  </div>
@@ -17,13 +17,17 @@
 import Card from './Card.vue'
 import Modal from './Modal.vue'
 import { destroyColumn } from '../../services/columnService.js'
+import { moveCard } from '../../services/cardService.js'
+
+import draggable from "vuedraggable";
 
 
 export default {
   name: 'Column',
   components: {
     Card,
-    Modal
+    Modal,
+    draggable
   },
   props: {
     column: {
@@ -38,10 +42,24 @@ export default {
     closedModal(){
     },
     destroyColumn(id){
-            this.$emit('columnDestroy')
+        destroyColumn(id).then((res) => {
+            EventBus.$emit('columnDestroyed')
+        })
+    },
+    log(evt) {
 
-        // destroyColumn(id).then(res => {
-        // })
+        if(evt.removed){
+            return;
+        }
+
+        let params = {
+            card_id: evt.moved ? evt.moved.element.id : evt.added.element.id,
+            column_id: this.column.id,
+            order: evt.moved ? evt.moved.newIndex : evt.added.newIndex
+        }
+
+        moveCard(params)
+        
     }
   }
 }

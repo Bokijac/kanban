@@ -37,9 +37,9 @@ export default {
 
       },
       columnDestroy(){
-        console.log('column destroyed')
         getColumns().then(res => {
           this.columns = res;
+          this.$forceUpdate();
         });
       }
     }

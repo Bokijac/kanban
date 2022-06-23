@@ -13,7 +13,7 @@
         <textarea v-model="description" placeholder="add multiple lines"></textarea>
       </div>
     </div>
-    <div  @click="destroyCard(id)">
+    <div @click="destroyCard(id)">
       DEL
     </div>
   </modal>

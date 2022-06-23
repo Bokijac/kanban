@@ -25,5 +25,11 @@ import axios from 'axios';
         return response;
     }
 
+    export async function moveCard(payload) {
+        const params = new URLSearchParams(payload).toString()
+        const response = await axios.put(`${baseUrl}/cards/move?${params}`);
+        return response;
+    }
+
 
   
