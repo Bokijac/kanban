@@ -2,33 +2,37 @@
   <div class="column">
     <div class="column__header">
         <div>{{column.title}}</div>
-        <div>+</div>
+        <div>DEL</div>
     </div>
-    <p>Desc</p>
+    <div>
+        <Card v-for="card in column.cards" :key="card.id" :card="card" />
+    </div>
+    <div>Add Card +</div>
  </div>
 </template>
 
 <script>
 
+import Card from './Card.vue'
 
 export default {
   name: 'Column',
+  components: {
+    Card
+  },
   props: {
     column: {
       required: true,
       type: Object
     }
   },
-  created(){
-    console.log(this.column)
-  }
 }
 </script>
 
 <style lang="scss">
 .column{
   border: 1px solid red;
-  height: 200px;
+//   height: 200px;
   flex: 1;
 }
 

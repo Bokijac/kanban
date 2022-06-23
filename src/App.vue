@@ -1,7 +1,9 @@
 <template>
-  <div id="wrapper">
-    <Column v-for="column in columns.data" :key="columns.id" :column="column" />
-    <div> Add column + </div>
+  <div>
+    <div id="wrapper">
+      <Column v-for="column in columns.data" :key="columns.id" :column="column" />
+      <div> Add column + </div>
+    </div>
   </div>
 </template>
 
@@ -11,23 +13,24 @@ import Column from './components/Column.vue'
 
 export default {
     name: "app",
-    components: { 
-      Column 
-    },
+    components: {
+    Column
+},
     data() {
-        return {
-            columns: [],
-        };
+      return {
+          columns: [],
+      };
     },
     created() {
-        getColumns().then(res => {
-            this.columns = res;
-        });
-    }
+      getColumns().then(res => {
+          this.columns = res;
+      });
+    },
 }
 </script>
 
 <style lang="scss">
+
 #wrapper {
   display: flex;
   width: 100%;
@@ -37,28 +40,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 2em;
 }
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-
-
-// new style
 
 </style>
