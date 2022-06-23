@@ -8,9 +8,22 @@ import axios from 'axios';
         return card;
     }
 
-    export async function updateCard(id, payload) {
+    export async function createCard(payload) {
         const params = new URLSearchParams(payload).toString()
-        const response = await axios.put(`${baseUrl}/cards/${id}`, payload);
+        const response = await axios.post(`${baseUrl}/cards?${params}`);
         return response;
     }
+
+    export async function updateCard(id, payload) {
+        const params = new URLSearchParams(payload).toString()
+        const response = await axios.put(`${baseUrl}/cards/${id}?${params}`);
+        return response;
+    }
+
+    export async function destroyCard(id) {
+        const response = await axios.delete(`${baseUrl}/cards/${id}`);
+        return response;
+    }
+
+
   

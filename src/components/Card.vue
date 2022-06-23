@@ -32,7 +32,6 @@ export default {
       this.$modal.show(`${id}modal`)
     },
     closedModal(){
-
       getCard(this.card.id).then(res => {
         this.title = res.data.title;
         this.$forceUpdate();

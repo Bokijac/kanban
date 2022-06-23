@@ -7,4 +7,15 @@ import axios from 'axios';
         columns = response.data;
         return columns;
     }
+
+    export async function createColumn(payload) {
+        const params = new URLSearchParams(payload).toString()
+        const response = await axios.post(`${baseUrl}/columns?${params}`);
+        return response;
+    }
+
+    export async function destroyColumn(id) {
+        const response = await axios.delete(`${baseUrl}/columns/${id}`);
+        return response;
+    }
   

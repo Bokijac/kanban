@@ -1,8 +1,9 @@
 <template>
   <div>
     <div id="wrapper">
-      <Column v-for="column in columns.data" :key="columns.id" :column="column" />
-      <div> Add column + </div>
+      <Column v-for="column in columns.data" :column="column" @columnDestroy="columnDestroy()"/>
+      <Modal @closedModal="closedModal"/>
+      <div  @click="openModal()"> Add column + </div>
     </div>
   </div>
 </template>
@@ -10,12 +11,14 @@
 <script>
 import { getColumns } from '../services/columnService.js';
 import Column from './components/Column.vue'
+import Modal from './components/Modal.vue'
 
 export default {
     name: "app",
     components: {
-    Column
-},
+      Column,
+      Modal
+    },
     data() {
       return {
           columns: [],
@@ -26,6 +29,20 @@ export default {
           this.columns = res;
       });
     },
+    methods: {
+      openModal(id) {
+        this.$modal.show('column-add')
+      },
+      closedModal(){
+
+      },
+      columnDestroy(){
+        console.log('column destroyed')
+        getColumns().then(res => {
+          this.columns = res;
+        });
+      }
+    }
 }
 </script>
 
