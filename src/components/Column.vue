@@ -5,9 +5,9 @@
         <div @click="destroyColumn(column.id)">DEL</div>
     </div>
     <draggable class="list-group" :list="column.cards" group="cards" @change="log">
-        <Card v-for="card in column.cards" :key="card.id" :card="card" />
+        <Card v-for="card in column.cards" :key="card.id" :card="card"  @destroyCard="destroyCard()" @createdCard="createdCard()" />
     </draggable>
-    <Modal :parentColumnId='column.id' @closedModal="closedModal"/>
+    <Modal :parentColumnId='column.id' @createdCard="createdCard()"/>
     <div @click="openModal(column.id)">Add Card +</div>
  </div>
 </template>
@@ -39,7 +39,11 @@ export default {
     openModal(id) {
       this.$modal.show(`${id}modal-add`)
     },
-    closedModal(){
+    createdCard(){
+      this.$emit('createdCard')
+    },
+    destroyCard(){
+      this.$emit('destroyCard')
     },
     destroyColumn(id){
       let self = this
