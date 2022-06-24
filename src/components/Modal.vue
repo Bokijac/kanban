@@ -53,6 +53,9 @@ export default {
       if(this.parentColumnId){
         return
       }
+      if(!this.id){
+        return
+      }
       getCard(this.id).then(res => {
         this.title = res.data.title
         this.description = res.data.description
